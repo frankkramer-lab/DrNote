@@ -1,0 +1,6 @@
+{
+    "wiki_language_code": "de",
+    "wikidata_endpoint": "https://query.wikidata.org/sparql",
+    "max_cpu_workers": 24,
+    "opentapioca-iterations": 16
+}

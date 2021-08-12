@@ -1,0 +1,12 @@
+{
+    "language": "de",
+    "name": "misit-medical",
+    "solrconfig": "tapioca",
+    "restrict_properties": [
+        "P699", "P2892"
+    ],
+    "restrict_types": [
+    ],
+    "alias_properties": [
+    ]
+}
