@@ -1,6 +1,7 @@
 # DrNote
 
-**Note: This repository page will be updated upon acceptance.**
+**Accepted at PLOS DH**:  
+[https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000086](https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000086) (or see citation)
 
 The DrNote annotation tool features a simple yet effective annotation tool for various purposes.  
 
@@ -39,9 +40,28 @@ The annotation service should be available at:
 `https://<DOCKER_HOST>/`
 
 Our demo instance is available at:  
-[https://textmining.misit-augsburg.de](https://textmining.misit-augsburg.de)  
+[https://drnote.misit-augsburg.de](https://drnote.misit-augsburg.de)  
 *Note:* Upload of large PDF files is not supported. Uploaded data is discarded after processing.  
 
+## Citation
+The paper is available at: [https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000086](https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000086)
+If you use our work or want to reference it, use the following bibtex lines:
+```
+@article{10.1371/journal.pdig.0000086,
+    doi = {10.1371/journal.pdig.0000086},
+    author = {Frei, Johann and Soto-Rey, Iñaki and Kramer, Frank},
+    journal = {PLOS Digital Health},
+    publisher = {Public Library of Science},
+    title = {DrNote: An open medical annotation service},
+    year = {2022},
+    month = {08},
+    volume = {1},
+    url = {https://doi.org/10.1371/journal.pdig.0000086},
+    pages = {1-18},
+    abstract = {In the context of clinical trials and medical research medical text mining can provide broader insights for various research scenarios by tapping additional text data sources and extracting relevant information that is often exclusively present in unstructured fashion. Although various works for data like electronic health reports are available for English texts, only limited work on tools for non-English text resources has been published that offers immediate practicality in terms of flexibility and initial setup. We introduce DrNote, an open source text annotation service for medical text processing. Our work provides an entire annotation pipeline with its focus on a fast yet effective and easy to use software implementation. Further, the software allows its users to define a custom annotation scope by filtering only for relevant entities that should be included in its knowledge base. The approach is based on OpenTapioca and combines the publicly available datasets from WikiData and Wikipedia, and thus, performs entity linking tasks. In contrast to other related work our service can easily be built upon any language-specific Wikipedia dataset in order to be trained on a specific target language. We provide a public demo instance of our DrNote annotation service at https://drnote.misit-augsburg.de/.},
+    number = {8},
+}
+```
 
 ## Referenced Repositories
  - [Annotation Service](https://git.rz.uni-augsburg.de/freijoha/annotation-service) provides the Webservice for a given PDF/Text.
