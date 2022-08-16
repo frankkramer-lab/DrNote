@@ -15,6 +15,37 @@ The processing of PDF files is supported. Linked entities can be injected as hyp
 
 Different languages (de, en, es etc.) are supported.
 
+**Demo**:  
+Our demo instance is available at:  
+[https://drnote.misit-augsburg.de](https://drnote.misit-augsburg.de)  
+*Note:* Upload of large PDF files is not supported. Uploaded data is discarded after processing.  
+
+**Graphical Demo**:  
+<kbd><img src="demo.png" alt="Annotation Demo" height="400"><kbd>  
+
+**CLI Demo**:
+<details>
+
+```bash
+# Enter text
+text="Die Diagnosen sind Hypothyreose bei Autoimmunthyreoiditis, Diabetes mellitus mit diabetische Nephropathie und akutes Nierenversagen."
+# Annotate
+curl -k https://drnote.misit-augsburg.de/annotate \
+  -F "inputType=plaintext" \
+  -F "outputType=html" \
+  -F \
+"filterOptions={
+  \"pipeline\": \"de_core_news_sm\",
+  \"rules\": [
+    \"any pos[NOUN,PROPN] require\",
+    \"all non_stopwords require\"
+  ]
+}" \
+  -F \
+"plaintext=$text"
+```
+</details>
+
 ## How to Use
 ### Spawn DrNote using Pre-trained Data
 Steps to spawn the service using pre-trained data:
@@ -61,10 +92,6 @@ Steps:
 
 The annotation service should be available at:  
 `https://<DOCKER_HOST>/`
-
-Our demo instance is available at:  
-[https://drnote.misit-augsburg.de](https://drnote.misit-augsburg.de)  
-*Note:* Upload of large PDF files is not supported. Uploaded data is discarded after processing.  
 
 ## Citation
 The paper is available at: [https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000086](https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000086)
