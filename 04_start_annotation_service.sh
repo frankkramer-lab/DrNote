@@ -35,8 +35,8 @@ cd serve/annotation-service
 cp ../../build/pretrained_data.tar.gz ./opentapioca-instance/pretrained_data.tar.gz
 cp ../../build/pretrained_data.tar.gz ./opentapioca-solr/pretrained_data.tar.gz
 
-# Edit build args URL
-sed -i 's|DATASET_URL=.*|DATASET_URL=./pretrained_data.tar.gz|g' docker-compose.yml
+# Edit build args for DATASET_FILE
+sed -i 's|DATASET_FILE=.*|DATASET_FILE=./pretrained_data.tar.gz|g' docker-compose.yml
 
 # (Re-)Build images
 docker-compose build --force-rm --pull --no-cache
