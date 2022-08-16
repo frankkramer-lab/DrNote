@@ -56,9 +56,9 @@ done
 
 echo "Downloading missing files"
 # Download data
-docker-compose exec -T wiki-nif-loader sh -c './mongowiki/loadData.sh'
+docker-compose exec -T wiki-nif-loader sh -c './mongowiki/loadData.sh 2>&1 | tee ./mongowiki/data/loadData_$(date +%s).log'
 # Process data (takes ~1-3 days)
-docker-compose exec -T wiki-nif-loader sh -c "PYTHONPATH=. python3 mongowiki/processData.py ${max_cpu_workers}"
+docker-compose exec -T wiki-nif-loader sh -c "PYTHONPATH=. python3 mongowiki/processData.py ${max_cpu_workers} 2>&1 | tee ./mongowiki/data/processData_$(date +%s).log"
 
 # Clean nif-data.nif file, if exists
 if [ -f "./nif-data/nif-data.nif" ]; then
@@ -67,7 +67,7 @@ if [ -f "./nif-data/nif-data.nif" ]; then
 fi
 
 # Generate NIF
-docker-compose exec -T wiki-nif-loader sh -c "PYTHONPATH=. python3 generateNIF.py mongowiki/data/opentapioca_profile.json ./mongowiki/data/nif-data.nif ${max_cpu_workers}"
+docker-compose exec -T wiki-nif-loader sh -c "PYTHONPATH=. python3 generateNIF.py -c ${max_cpu_workers} mongowiki/data/opentapioca_profile.json ./mongowiki/data/nif-data.nif 2>&1 | tee ./mongowiki/data/generateNIF_$(date +%s).log"
 
 # Shut down container
 docker-compose down -v

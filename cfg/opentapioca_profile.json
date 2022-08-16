@@ -3,9 +3,10 @@
     "name": "misit-medical",
     "solrconfig": "tapioca",
     "restrict_properties": [
-        "P699", "P2892"
+        "P699", "P2892", "P486", "P672"
     ],
     "restrict_types": [
+        {"type": "Q12140", "property": "P279"}
     ],
     "alias_properties": [
     ]
