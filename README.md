@@ -16,6 +16,29 @@ The processing of PDF files is supported. Linked entities can be injected as hyp
 Different languages (de, en, es etc.) are supported.
 
 ## How to Use
+### Spawn DrNote using Pre-trained Data
+Steps to spawn the service using pre-trained data:
+```bash
+# Assumed: Docker, Docker-compose installed and user added to Docker group
+# follow guide from https://docs.docker.com/engine/install/ubuntu/
+# sudo apt-get install -y docker docker-compose
+# sudo usermod -aG docker $USER
+
+# Clone repository
+git clone https://github.com/frankkramer-lab/DrNote
+cd DrNote/
+
+# Retrieve pre-trained data
+wget -O build/pretrained_data.tar.gz https://myweb.rz.uni-augsburg.de/~freijoha/DrNote/pretrained_data.tar.gz
+
+# Spawn annotation service
+./04_start_annotation_service.sh
+```
+
+The annotation service should be available at:  
+`https://<DOCKER_HOST>/`
+
+### Build From Scratch and Spawn DrNote
 Steps to automatically build the OpenTapioca data setup pipeline and spawn the annotation service.  
 
 Prestep: Setup the configuration:
