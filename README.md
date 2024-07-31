@@ -15,6 +15,9 @@ The processing of PDF files is supported. Linked entities can be injected as hyp
 
 Different languages (de, en, es etc.) are supported.
 
+**Update on Results**:  
+A bug in the evaluation pipeline was found, leading to degraded results in the obtained scores. See the updated scores in the **Errata** section.
+
 **Demo**:  
 Our demo instance is available at:  
 [https://drnote.misit-augsburg.de](https://drnote.misit-augsburg.de)  
@@ -45,6 +48,59 @@ curl -k https://drnote.misit-augsburg.de/annotate \
 "plaintext=$text"
 ```
 </details>
+
+## Errata
+Detected Issues:
+- For the GSC EMEA/Medline datasets, the labels were not correctly filtered for the `CHEM` label class in all instances.
+- Due to a too strict regular expression, detected `Chemical` entries for PubTator were only considered if a MeSH code given.
+
+The evaluation was re-run with a corrected evaluation pipeline. However, due to constant changes in the WikiData, the results may vary.
+For instance, due to substantial changes in the WikiData graph structure, the SPARQL query to find medication entities was changed from the previous query
+<details>
+<summary>(old SPARQL query)</summary>
+
+```
+SELECT DISTINCT ?entity WHERE
+{
+    {?entity wdt:P279+ wd:Q12140 .}
+    UNION
+    {?entity wdt:P31+ wd:Q12140 .}
+}
+```
+
+</details>
+to a ATC code-based query
+<details>
+<summary>(new SPARQL query)</summary>
+
+```
+SELECT DISTINCT ?entity WHERE
+{
+    {?entity wdt:P279+ wd:Q12140 .}
+    UNION
+    {?entity wdt:P31+ wd:Q12140 .}
+    UNION
+    {?entity wdt:P267 ?atccode .}
+}
+```
+</details>
+
+For comparisons, the (cached) original outputs from PubTator, cTAKES, and the original pre-trained DrNote model & index store was used. Also, the cached set of UMLS entities was used.
+The updated results are (as of 31.07.2024) as follows.
+
+| Dataset     | Method            | Precision | Recall | F1 score    |
+|-------------|-------------------|-----------|--------|-------------|
+| GERNERMED   | cTAKES            | 0.845     | 0.505  | 0.632       |
+| GERNERMED   | PubTator          | 0.760     | 0.481  | 0.590       |
+| GERNERMED   | DrNote            | 0.935     | 0.624  | **0.748**   |
+| Medline GSC | cTAKES            | 0.336     | 0.291  | 0.312       |
+| Medline GSC | PubTator          | 0.449     | 0.420  | **0.434**   |
+| Medline GSC | DrNote            | 0.693     | 0.139  | 0.232       |
+| EMEA GSC    | cTAKES            | 0.447     | 0.333  | **0.382**   |
+| EMEA GSC    | PubTator          | 0.522     | 0.211  | 0.300       |
+| EMEA GSC    | DrNote            | 0.833     | 0.172  | 0.285       |
+| Medline GSC | DrNote (filtered) | 0.634     | 0.444  | **_0.522_** |
+| EMEA GSC    | DrNote (filtered) | 0.604     | 0.636  | **_0.620_** |
 
 ## How to Use
 ### Spawn DrNote using Pre-trained Data
