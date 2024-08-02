@@ -52,12 +52,12 @@ curl -k https://drnote.misit-augsburg.de/annotate \
 ## Errata
 Detected issues:
 - For the GSC EMEA/Medline datasets, the labels were not correctly filtered for the `CHEM` label class in all instances.
-- Due to a too strict regular expression, detected `Chemical` entries for PubTator were only considered if a MeSH code given.
-- For GSC EMEA/Medline datasets, in the cTAKES outputs the UMLS tags were wrongfully used over the MedicationMentions tags.
-- The character spans of cTAKES yield broken values due to unsupported umlaut characters. The broken character spans are now fixed using a workaround.
+- Due to a too strict regular expression, detected `Chemical` entries for PubTator were only considered if a MeSH code was given.
+- For GSC EMEA/Medline datasets, in the cTAKES outputs, the UMLS tags were wrongfully used over the MedicationMentions tags.
+- The character spans of cTAKES may yield broken values due to unsupported umlaut characters. The broken character spans are now fixed using a workaround.
 
-The evaluation was re-run with a corrected evaluation pipeline. However, due to constant changes in the WikiData, the results may vary.
-For instance, due to substantial changes in the WikiData graph structure, the SPARQL query to find medication entities was changed from the previous query
+The evaluation was re-run with a revised evaluation pipeline. However, due to constant changes in the WikiData, the results may vary.
+For instance, due to substantial changes in the WikiData graph structure, the SPARQL query for finding medication entities was changed from the previous query
 <details>
 <summary>(old SPARQL query)</summary>
 
@@ -71,7 +71,7 @@ SELECT DISTINCT ?entity WHERE
 ```
 
 </details>
-to a ATC code-based query
+to an ATC code-based query
 <details>
 <summary>(new SPARQL query)</summary>
 
